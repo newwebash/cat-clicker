@@ -87,6 +87,22 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+   .cats {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-evenly;
+     max-width: 90%;
+     margin: auto;
+   }
+
+   .cat-counter {
+     max-width: 40%;
+   }
+
+   .cat-pic {
+     max-width: 100%;
+   }
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
