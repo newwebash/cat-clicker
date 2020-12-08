@@ -17,27 +17,33 @@ let catArray = [cat1 = {
             ]
 
 
-// Store reusable page elements in vars
-
-let catDiv = [catDiv1 = {
-                "name": document.getElementById('cat-1-name'),
-                "img" : document.getElementById('cat-1-pic'),
-                "count": document.getElementById('cat-1-count')
-            },
-            catDiv2 = {
-                "name": document.getElementById('cat-2-name'),
-                "img" : document.getElementById('cat-2-pic'),
-                "count": document.getElementById('cat-2-count')
-            }
-        ]  
-
-
 // Insert inital cat info in page
 
  for (var i=0; i < catArray.length; i++) {
-    catDiv[i].name.innerHTML = catArray[i].name;
-    catDiv[i].img.src = catArray[i].img;
-    catDiv[i].count.innerHTML = catArray[i].count;
+    // Select parent element
+    var parent = document.getElementById("cat-container");
+    //create container div with required class and append to parent
+    var container = document.createElement('div');
+    container.className = "cat-counter";
+    parent.appendChild(container);
+
+    // Create nested object elements -- heading
+    var h = document.createElement("H2");
+    var hText = document.createTextNode(catArray[i].name);
+    h.appendChild(hText);
+    h.className = "cat-name";
+    container.appendChild(h);
+
+    // Image
+    var image = document.createElement("IMG");
+    image.className = "cat-pic";
+    image.src = catArray[i].img;
+    container.appendChild(image);
+    
+    // Count
+    var numClicks = document.createElement("P");
+    numClicks.innerText = "Count: " + catArray[i].count;
+    container.appendChild(numClicks);
 }
 
 
