@@ -1,39 +1,39 @@
 console.log("Hello world!");
 
 // Create cat objects
+var mittens = {};
+mittens.name = "Mittens";
+mittens.img = "img/mittens.jpg";
+mittens.count = 0;
+mittens.uid = 1;
+
+var sylvester = {};
+sylvester.name = "Sylvester";
+sylvester.img = "img/sylvester.jpg";
+sylvester.count = 0;
+sylvester.uid = 2;
 
 // Store cat objects in array
-
-let catArray = [cat1 = {
-                    "name": "Mittens",
-                    "img": "img/mittens.jpg",
-                    "count": 0,
-                    "uid": 1
-                },
-                cat2 = {
-                    "name": "Sylvester",
-                    "img": "img/sylvester.jpg",
-                    "count": 0,
-                    "uid": 2
-                }
-            ]
+let catArray = [mittens, sylvester];
 
 
 // Select parent element
 var parent = document.getElementById("cat-container");
 
+// increaseCount parameters are the cat that was clicked and the paragraph
+// countaining its count
 function increaseCount(cat, p) {
     cat.count++;
     p.innerText = "Count: " + cat.count;
 }
 
 
+// Insert inital cat info in page
+
  for (var i=0; i < catArray.length; i++) {
 
     (function(i) {
         var currentCat = catArray[i];
-
-        // Insert inital cat info in page
 
         //create container div with required class and append to parent
         var container = document.createElement('div');
@@ -66,8 +66,18 @@ function increaseCount(cat, p) {
         catID.innerText = "ID: " + currentCat.uid;
         container.appendChild(catID);
 
+        // Send current count and the paragraph containing its count
+        // to increaseCount
         image.addEventListener('click', function(){
             increaseCount(currentCat, numClicks);
         }, false);
 
     }(i));
+
+}
+
+    
+
+    
+
+    
