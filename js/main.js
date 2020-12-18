@@ -64,6 +64,7 @@ function increaseCount(cat, p) {
         // ID (Just for testing, to be removed later)
         var catID = document.createElement("P");
         catID.innerText = "ID: " + currentCat.uid;
+        catID.className = "invisible";
         container.appendChild(catID);
 
         // Send current count and the paragraph containing its count
@@ -73,6 +74,18 @@ function increaseCount(cat, p) {
         }, false);
 
     }(i));
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+          document.body.style.setProperty(
+            "--scroll",
+            window.pageYOffset / (document.body.offsetHeight - window.innerHeight)
+          );
+        },
+        false
+      );
 
 }
 

@@ -1,0 +1,27 @@
+/* Heading styles */
+
+html {
+    min-height: 500vh;
+}
+
+.site-title {
+    font-size: 18vw;
+    line-height: 1em;
+    margin: 5px 0;
+    overflow: hidden;   
+}
+
+.slide-scroll {
+    animation: slide 1s ease-out infinite;
+    animation-play-state: paused;
+    animation-delay: calc(var(--scroll) * -1s);
+
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+@keyframes slide {
+    to {
+      transform: translateX(200px);
+    }
+  }
