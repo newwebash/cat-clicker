@@ -7,103 +7,67 @@ console.log("Hello world!");
 let catArray = [cat1 = {
                     "name": "Mittens",
                     "img": "img/mittens.jpg",
-                    "count": 0
+                    "count": 0,
+                    "uid": 1
                 },
                 cat2 = {
                     "name": "Sylvester",
                     "img": "img/sylvester.jpg",
-                    "count": 0
+                    "count": 0,
+                    "uid": 2
                 }
             ]
 
 
-// Insert inital cat info in page
+// Select parent element
+var parent = document.getElementById("cat-container");
 
- for (var i=0; i < catArray.length; i++) {
-    // Select parent element
-    var parent = document.getElementById("cat-container");
-    //create container div with required class and append to parent
-    var container = document.createElement('div');
-    container.className = "cat-counter";
-    parent.appendChild(container);
-
-    // Create nested object elements -- heading
-    var h = document.createElement("H2");
-    var hText = document.createTextNode(catArray[i].name);
-    h.appendChild(hText);
-    h.className = "cat-name";
-    container.appendChild(h);
-
-    // Image
-    var image = document.createElement("IMG");
-    image.className = "cat-pic";
-    image.src = catArray[i].img;
-    container.appendChild(image);
-    
-    // Count
-    var numClicks = document.createElement("P");
-    numClicks.innerText = "Count: " + catArray[i].count;
-    container.appendChild(numClicks);
+function increaseCount(cat, p) {
+    cat.count++;
+    p.innerText = "Count: " + cat.count;
 }
 
 
+ for (var i=0; i < catArray.length; i++) {
 
-catDiv1.img.addEventListener('click', function() {
+    (function(i) {
+        var currentCat = catArray[i];
 
-    console.log("cat1.count before: " + cat1.count);
-    cat1.count++;
+        // Insert inital cat info in page
 
-    catDiv1.count.innerHTML = cat1.count;
-    
-    console.log("cat1.count before: " + cat1.count);
-}, false);
+        //create container div with required class and append to parent
+        var container = document.createElement('div');
+        container.className = "cat-counter";
+        container.setAttribute("id", "cat" + currentCat.uid);
+        parent.appendChild(container);
 
-catDiv2.img.addEventListener('click', function() {
+        // Create nested object elements -- heading
+        var h = document.createElement("H2");
+        var hText = document.createTextNode(currentCat.name);
+        h.appendChild(hText);
+        h.className = "cat-name";
+        container.appendChild(h);
 
-    console.log("cat2.count before: " + cat2.count);
-    cat2.count++;
+        // Image
+        var image = document.createElement("IMG");
+        image.className = "cat-pic";
+        image.src = currentCat.img;
+        image.setAttribute("id", "cat-pic" + currentCat.uid);
+        container.appendChild(image);
 
-    catDiv2.count.innerHTML = cat2.count;
-    
-    console.log("cat2.count before: " + cat2.count);
-}, false);
+        // Count
+        var numClicks = document.createElement("P");
+        numClicks.innerText = "Count: " + currentCat.count;
+        numClicks.setAttribute("id", currentCat.name + "-count");
+        container.appendChild(numClicks);
 
+        // ID (Just for testing, to be removed later)
+        var catID = document.createElement("P");
+        catID.innerText = "ID: " + currentCat.uid;
+        container.appendChild(catID);
 
+        image.addEventListener('click', function(){
+            increaseCount(currentCat, numClicks);
+        }, false);
 
-
-
-// Experimental loop, not currently functional
-
-// Update count
-
-// For each div in catDiv
-// for (var i = 0; i < catDiv.length-1; i++) {
-//     // set local counter to corresponding cat object count
-//     var privateCount = catArray[i].count;
-//     console.log("privateCount before" + privateCount);
-//     // when div img is clicked
-//     catDiv[i].img.addEventListener('click', function() {
-//         // increment local counter
-//         privateCount++;
-//         console.log("privateCount before" + privateCount);
-//         // Set update count in div
-        
-//         catDiv[i].count.innerHTML = privateCount;
-//     })
-// }
-
-// Experimental function -- not currently functional
-// function countUp(counterName) {
-//     // Set local counter var
-//     let privateCount = 0;
-
-//     console.log("privateCount before" + privateCount);
-
-//     // Increment local count
-//     privateCount++;
-//     // Get count
-//     counterName
-//     catDiv.count.innerHTML = privateCount;
-//     console.log("privateCount after" + privateCount);
-
-// }
+    }(i));
