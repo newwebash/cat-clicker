@@ -53,7 +53,7 @@ function increaseCount(cat, p) {
 // displayCat(cat): function parameter = the cat that was picked from the list
 
 function displayCat(cat) {
-  //check to see if there's already a cat displayed
+  //check to see if there's already a cat displayed and if so, remove it
   if (parent.hasChildNodes()) {
     parent.removeChild(parent.firstChild);
   }
@@ -69,6 +69,7 @@ function displayCat(cat) {
   var hText = document.createTextNode(cat.name);
   h.appendChild(hText);
   h.className = "cat-name";
+  h.className = "cat-info";
   container.appendChild(h);
 
   // Image
@@ -82,6 +83,7 @@ function displayCat(cat) {
   var numClicks = document.createElement("P");
   numClicks.innerText = "Count: " + cat.count;
   numClicks.setAttribute("id", cat.name + "-count");
+  numClicks.className = "cat-info";
   container.appendChild(numClicks);
 
   // ID (Just for testing, to be removed later)
@@ -114,13 +116,16 @@ function makeCatPicker(cat) {
 }
 
 
-// Insert inital cat info in page and picker
+// Insert inital cat info in picker
 
  for (var i=0; i < catArray.length; i++) {
 
   makeCatPicker(catArray[i]);  
 
 }
+
+// Insert first cat in cat div on page load
+document.addEventListener("load", displayCat(catArray[0]));
 
 window.addEventListener(
   "scroll",
