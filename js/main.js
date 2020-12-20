@@ -53,6 +53,11 @@ function increaseCount(cat, p) {
 // displayCat(cat): function parameter = the cat that was picked from the list
 
 function displayCat(cat) {
+  //check to see if there's already a cat displayed
+  if (parent.hasChildNodes()) {
+    parent.removeChild(parent.firstChild);
+  }
+
   //create container div with required class and append to parent
   var container = document.createElement('div');
   container.className = "cat-counter";
@@ -112,7 +117,7 @@ function makeCatPicker(cat) {
 // Insert inital cat info in page and picker
 
  for (var i=0; i < catArray.length; i++) {
-   
+
   makeCatPicker(catArray[i]);  
 
 }
