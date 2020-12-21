@@ -33,5 +33,3 @@ ometto.uid = 5;
 
 // Store cat objects in array
 let catArray = [mittens, sylvester, bilbo, jazzy, ometto];
-
-//export {catArray};
