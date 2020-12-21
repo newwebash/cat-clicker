@@ -1,43 +1,34 @@
+//import {catArray} from 'js/cats.js'
+
 console.log("Hello world!");
 
-// Create cat objects
-var mittens = {};
-mittens.name = "Mittens";
-mittens.img = "img/mittens.jpg";
-mittens.count = 0;
-mittens.uid = 1;
+// $(function() {
 
-var sylvester = {};
-sylvester.name = "Sylvester";
-sylvester.img = "img/sylvester.jpg";
-sylvester.count = 0;
-sylvester.uid = 2;
+//   var model = {
+//     init: function() {
 
-var bilbo = {};
-bilbo.name = "Bilbo";
-bilbo.img = "img/bilbo.jpg";
-bilbo.count = 0;
-bilbo.uid = 3;
-
-var jazzy = {};
-jazzy.name = "Jazzy";
-jazzy.img = "img/jazzy.jpg";
-jazzy.count = 0;
-jazzy.uid = 4;
-
-var ometto = {};
-ometto.name = "Ometto";
-ometto.img = "img/ometto.jpg";
-ometto.count = 0;
-ometto.uid = 5;
+//     }
+//   };
 
 
-// Store cat objects in array
-let catArray = [mittens, sylvester, bilbo, jazzy, ometto];
+//   var controller = {
+
+//   };
+
+
+//   var view = {
+
+//   };
+
+// });
+
+    
+
+
 
 
 // Select section element
-var parent = document.getElementById("cat-container");
+const parent = document.getElementById("cat-container");
 
 // Select aside element
 var pickerContainer = document.getElementById("cat-picker-container");
@@ -123,22 +114,3 @@ function makeCatPicker(cat) {
   makeCatPicker(catArray[i]);  
 
 }
-
-// Insert first cat in cat div on page load
-document.addEventListener("load", displayCat(catArray[0]));
-
-window.addEventListener(
-  "scroll",
-  () => {
-    document.body.style.setProperty(
-      "--scroll",
-      window.pageYOffset / (document.body.offsetHeight - window.innerHeight)
-    );
-  },
-  false
-);
-    
-
-    
-
-    
