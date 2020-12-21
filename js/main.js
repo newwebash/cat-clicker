@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
 
     updateActiveCat: function (cat) {
+      console.log("Hello from data updateActiveCat!");
       this.activeCat = cat;
     },
 
@@ -35,8 +36,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
       console.log("Hello from controller setActiveCat!");
       console.log("cat: " + cat.name);
       model.updateActiveCat(cat);
+      view.render();
     },
     getActiveCat: function() {
+      console.log("Hello from controller getActiveCat!");
       return model.getActiveStatus();
     },
     init: function() {
@@ -60,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var catList = controller.getCats();  // Get cats from controller      
       for (var i=0; i < catArray.length; i++) {  
         var currentCat = catList[i];  
-        console.log(currentCat);
       
         // Insert inital cat info in picker
         var catThumbnail = document.createElement("LI");
