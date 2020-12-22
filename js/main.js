@@ -22,9 +22,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     getActiveStatus: function() {
       return this.activeCat;
+    },
+
+    updateCatCount: function(cat) {
+      cat.count++;
     }
     
   };
+
+
+
 
 
   var controller = {
@@ -43,12 +50,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
       console.log("model.getActiveStatus().name: " + model.getActiveStatus().name);
       return model.getActiveStatus();
     },
+    increaseCount: function(cat) {
+      model.updateCatCount(cat);
+      view.render();
+    },
     init: function() {
       console.log("Hello from controller init!");
       model.init();
       view.init();
     }
   };
+
+
+
 
 
   var view = {
@@ -132,6 +146,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
       catID.innerText = "ID: " + activeCat.uid;
       catID.className = "invisible";
       container.appendChild(catID);
+
+      // Send current count and the paragraph containing its count
+      // to increaseCount
+      image.addEventListener('click', function(){
+      controller.increaseCount(activeCat);
+      }, false);
     }
 
   };
