@@ -72,6 +72,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
         this.makeCatPicker(currentCat);  
       }
 
+      // Enable scrolling animation on site title
+      window.addEventListener(
+        "scroll",
+        () => {
+          document.body.style.setProperty(
+            "--scroll",
+            window.pageYOffset / (document.body.offsetHeight - window.innerHeight)
+          );
+        },
+        false
+      );
+
       view.render();  // Render or re-render view
     },
 
