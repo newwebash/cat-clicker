@@ -6,48 +6,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var model = {    
 
     init: function() {    
-      console.log("Hello from model init!");
       this.activeCat = catArray[0]; // Intialize active cat to first cat in array
     },
-
     getAllCats: function () {
-      console.log("Hello from data getAllCats!");
       return catArray;
     },
-
     updateActiveCat: function (cat) {
-      console.log("Hello from data updateActiveCat!");
       this.activeCat = cat;
     },
-
     getActiveStatus: function() {
       return this.activeCat;
     },
-
     updateCatCount: function(cat) {
       cat.count++;
-    }
-    
+    }    
   };
-
-
-
 
 
   var controller = {
     getCats: function () {
-      console.log("Hello from controller getCats!");
       return model.getAllCats();
     },
     setActiveCat: function(cat) {
-      console.log("Hello from controller setActiveCat!");
-      console.log("cat: " + cat.name);
       model.updateActiveCat(cat);
       view.render();
     },
     getActiveCat: function() {
-      console.log("Hello from controller getActiveCat!");
-      console.log("model.getActiveStatus().name: " + model.getActiveStatus().name);
       return model.getActiveStatus();
     },
     increaseCount: function(cat) {
@@ -55,19 +39,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       view.render();
     },
     init: function() {
-      console.log("Hello from controller init!");
       model.init();
       view.init();
     }
   };
 
 
-
-
-
   var view = {
     makeCatPicker: function(cat) {
-      console.log("Hello from view makeCatPicker!");
       // Insert inital cat info in picker
       var catThumbnail = document.createElement("LI");
       var catThumbnailText = document.createTextNode(cat.name);
@@ -83,17 +62,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
 
     init: function() {      
-      console.log("Hello from view init!");
-
       this.parent = document.getElementById("cat-container");  // Select section element      
-      this.pickerContainer = document.getElementById("cat-picker-container");    // Select aside element      
-
+      this.pickerContainer = document.getElementById("cat-picker-container");    // Select aside element     
       // Populate cat picker list
       var catList = controller.getCats();  // Get cats from controller   
          
       for (var i=0; i < catList.length; i++) {  
-        var currentCat = catList[i];  
-      
+        var currentCat = catList[i];        
         this.makeCatPicker(currentCat);  
       }
 
@@ -102,8 +77,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     
     render: function() {
-      console.log("Hello from view render!");
-      
       // Get active cat
       var activeCat = controller.getActiveCat();
 
