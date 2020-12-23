@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var hText = document.createTextNode(activeCat.name);
       h.appendChild(hText);
       h.className = "cat-name";
-      h.className = "cat-info";
+      h.className = "cat-info background-gradient";
       container.appendChild(h);
 
       // Image
