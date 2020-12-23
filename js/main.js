@@ -47,9 +47,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var view = {
     makeCatPicker: function(cat) {
-      // Insert inital cat info in picker
-      var catThumbnail = document.createElement("LI");
+      var catThumbnail = document.createElement("LI");      
       var catThumbnailText = document.createTextNode(cat.name);
+      catThumbnail.className = "clickable picker-item";
       catThumbnail.appendChild(catThumbnailText);
 
       // Insert in picker container div
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       // Image
       var image = document.createElement("IMG");
-      image.className = "cat-pic";
+      image.className = "cat-pic clickable";
       image.src = activeCat.img;
       image.setAttribute("id", "cat-pic" + activeCat.uid);
       container.appendChild(image);
