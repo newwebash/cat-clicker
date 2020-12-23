@@ -95,7 +95,7 @@ textarea {
     max-width: 800px;
     margin: auto;
   }
-  
+
   .main-container {
     display: flex;
     flex-direction: column;
@@ -116,17 +116,67 @@ textarea {
      max-width: 80%;
    }
 
-   .cat-info {
-     text-align: center;
+   .background-gradient {
+    background: rgb(231,18,80);
+    background: linear-gradient(122deg, rgba(231,18,80,1) 0%, rgba(238,35,181,1) 71%, rgba(228,29,253,1) 81%, rgba(183,97,245,1) 100%);
+    color: white;
+    margin: 0;
+    padding: 5px;
+   }
+
+   .cat-info, .activeCat-info {
+     text-align: center;     
    }
 
    .cat-pic {
      max-width: 100%;
    }
 
-   .picker-list {
-     align-self: center;
+   .cat-menu {
+     padding: 0;
    }
+
+   .picker-list {
+     align-self: flex-start;
+     width: 35%;
+   }
+
+   .cat-menu {
+     list-style-type: none;
+   }
+
+   .button {
+     width: 100px;
+     height: 50px;
+     border: none;
+     border-radius: 10px;
+     margin: auto;
+   }
+
+   .form {
+     padding: 20px 0 5px 0;
+   }
+
+  .clickable:hover, .clickable:active {
+    animation-name: grow;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+
+  @keyframes grow {
+    100% {
+      transform: scale(1.05);
+    }
+  }
+
+  .footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 30px;
+  }
 
 /* ==========================================================================
    Helper classes

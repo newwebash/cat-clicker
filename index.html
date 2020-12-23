@@ -41,21 +41,45 @@
         
       </div>
       <div>      
-        <p><strong>Instructions:</strong> Click on the cat to see the number of clicks increase =)</p>
+        <p><strong>Instructions:</strong> </p>
+          <ol>
+            <li>Select a cat from the list.</li>
+            <li>Click on the cat to see the number of clicks increase =D</li>
+            <li>(Admins only) To edit cat properties, click <strong>Admin</strong>.</li>
+          </ol>
+          
       </div>
       
     </section>
 
+    
+
     <aside class="picker-list">
+      <button id="admin-button" class="button background-gradient clickable">Admin</button>
+      <form id="admin-form" class="form">
+        <div id="name-field">
+          <label for="form-name-field" id="name-label" class="form__label">Cat name:
+            <input type="text" id="form-name-field" name="form-name-field">
+          </label>
+          <label for="form-url-field" id="form-url-label" class="form__label">URL
+            <input type="text" id="form-url-field" name="form-url-field">
+          </label>
+          <label for="form-clicks-field" id="form-clicks-label" class="form__label">Number of clicks
+            <input type="number" id="form-clicks-field" name="form-clicks-field">
+          </label>
+        </div>
+        
+      </form>
+
       <h2>Select a cat:</h2>
-      <ul id="cat-picker-container">
+      <ul id="cat-picker-container" class="cat-menu">
 
       </ul>
-    </aside>
+    </aside>    
 
   </div>
 
-  <footer>
+  <footer class="footer">
     Images licensed under Creative Commons <a href="https://creativecommons.org/licenses/by/2.0/">(license)</a>.
   </footer>
 
