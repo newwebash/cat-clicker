@@ -34,16 +34,52 @@ document.addEventListener("DOMContentLoaded", function(event) {
     getActiveCat: function() {
       return model.getActiveStatus();
     },
+    // setAdminMode: function() { // Change active mode from true to false, or from false to true
+    //   console.log("hi from controller setAdminMode!");
+    //   if (this.activeMode == true) {
+    //     this.activeMode = false;
+    //   } else {       
+    //     this.activeMode = true;
+    //   }         
+    // },
+    // getAdminMode: function() {
+    //   return this.activeMode;
+    // },
     increaseCount: function(cat) {
       model.updateCatCount(cat);
       view.render();
     },
     init: function() {
       model.init();
-      view.init();
+      view.init();      
+      adminView.init();
     }
   };
 
+  var adminView = {
+    init: function() {
+      console.log("hi from AdminView init!");
+      this.adminButton = document.getElementById("admin-button");
+      this.adminButton.addEventListener('click', function(){
+        //controller.setAdminMode();
+        adminView.render();
+      }, false);
+      adminView.render();
+    },
+
+    render: function() {
+      console.log("hi from AdminView render!");
+      this.adminArea = document.getElementById('admin-form');
+      this.adminArea.classList.toggle("hidden");
+      // if (controller.getAdminMode() == true) {
+      //   console.log("true");
+      //   this.adminArea.classList.toggle("hidden");
+      // } else {
+      //   console.log("false");
+      //   this.adminArea.classList.toggle("hidden");
+      // }
+    }
+  };
 
   var view = {
     makeCatPicker: function(cat) {
@@ -137,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       image.addEventListener('click', function(){
       controller.increaseCount(activeCat);
       }, false);
-    }
+    }   
 
   };
 

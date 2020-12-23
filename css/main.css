@@ -137,7 +137,7 @@ textarea {
    }
 
    .picker-list {
-     align-self: center;
+     align-self: flex-start;
      width: 35%;
    }
 
@@ -145,12 +145,16 @@ textarea {
      list-style-type: none;
    }
 
-   .admin-button {
+   .button {
      width: 100px;
      height: 50px;
      border: none;
      border-radius: 10px;
      margin: auto;
+   }
+
+   .form {
+     padding: 20px 0 5px 0;
    }
 
   .clickable:hover, .clickable:active {
