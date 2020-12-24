@@ -34,17 +34,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     getActiveCat: function() {
       return model.getActiveStatus();
     },
-    // setAdminMode: function() { // Change active mode from true to false, or from false to true
-    //   console.log("hi from controller setAdminMode!");
-    //   if (this.activeMode == true) {
-    //     this.activeMode = false;
-    //   } else {       
-    //     this.activeMode = true;
-    //   }         
-    // },
-    // getAdminMode: function() {
-    //   return this.activeMode;
-    // },
     increaseCount: function(cat) {
       model.updateCatCount(cat);
       view.render();
@@ -61,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       console.log("hi from AdminView init!");
       this.adminButton = document.getElementById("admin-button");
       this.adminButton.addEventListener('click', function(){
-        //controller.setAdminMode();
         adminView.render();
       }, false);
       adminView.render();
@@ -71,13 +59,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
       console.log("hi from AdminView render!");
       this.adminArea = document.getElementById('admin-form');
       this.adminArea.classList.toggle("hidden");
-      // if (controller.getAdminMode() == true) {
-      //   console.log("true");
-      //   this.adminArea.classList.toggle("hidden");
-      // } else {
-      //   console.log("false");
-      //   this.adminArea.classList.toggle("hidden");
-      // }
+      // Set default input values
+      document.getElementById("form-name-field").defaultValue = controller.getActiveCat().name;
+      document.getElementById("form-url-field").defaultValue = controller.getActiveCat().img;
+      document.getElementById("form-clicks-field").defaultValue = controller.getActiveCat().count;
     }
   };
 
