@@ -157,6 +157,14 @@ textarea {
      padding: 20px 0 5px 0;
    }
 
+   .form__input {
+     margin: 5px 0 8px 0;
+   }
+
+   #save-button {
+     margin-top: 10px;
+   }
+
   .clickable:hover, .clickable:active {
     animation-name: grow;
     animation-duration: 0.5s;

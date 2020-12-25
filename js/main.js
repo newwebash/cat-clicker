@@ -19,8 +19,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
     updateCatCount: function(cat) {
       cat.count++;
+    },
+    updateCatData: function(name, url, count) {
+      this.activeCat = this.getActiveStatus();
+      console.log("catArray[0].name: " + catArray[0].name);
+      for (var i = 0; i < catArray.length-1; i++) {
+        var currentCat = catArray[i];
+        if (this.activeCat.name == currentCat.name) {
+          currentCat.name = name;
+          currentCat.img = url;
+          currentCat.count = count;
+        }
+      }
     }    
   };
+
+
+
+
+
 
 
   var controller = {
@@ -34,20 +51,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     getActiveCat: function() {
       return model.getActiveStatus();
     },
-    // setAdminMode: function() { // Change active mode from true to false, or from false to true
-    //   console.log("hi from controller setAdminMode!");
-    //   if (this.activeMode == true) {
-    //     this.activeMode = false;
-    //   } else {       
-    //     this.activeMode = true;
-    //   }         
-    // },
-    // getAdminMode: function() {
-    //   return this.activeMode;
-    // },
     increaseCount: function(cat) {
       model.updateCatCount(cat);
+      view.render();      
+    },
+    updateCatInfo: function(name, url, count) {
+      model.updateCatData(name, url, count);
       view.render();
+      adminView.render();
     },
     init: function() {
       model.init();
@@ -56,12 +67,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
   };
 
+
+
+
+
+
   var adminView = {
     init: function() {
       console.log("hi from AdminView init!");
       this.adminButton = document.getElementById("admin-button");
       this.adminButton.addEventListener('click', function(){
-        //controller.setAdminMode();
         adminView.render();
       }, false);
       adminView.render();
@@ -71,13 +86,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
       console.log("hi from AdminView render!");
       this.adminArea = document.getElementById('admin-form');
       this.adminArea.classList.toggle("hidden");
-      // if (controller.getAdminMode() == true) {
-      //   console.log("true");
-      //   this.adminArea.classList.toggle("hidden");
-      // } else {
-      //   console.log("false");
-      //   this.adminArea.classList.toggle("hidden");
-      // }
+      // Set default input values
+      document.getElementById("form-name-field").defaultValue = controller.getActiveCat().name;
+      document.getElementById("form-url-field").defaultValue = controller.getActiveCat().img;
+      document.getElementById("form-clicks-field").defaultValue = controller.getActiveCat().count;
+      // Save new input values   
+      document.getElementById("save-button").addEventListener('click', function(event){
+        event.preventDefault();
+        this.nameField = document.getElementById("form-name-field").value;        
+        this.urlField = document.getElementById("form-url-field").value;
+        this.numClicksField = document.getElementById("form-clicks-field").value;
+        console.log("new name value = " + this.nameField);
+        console.log("new url value = " + this.urlField);
+        console.log("new numclicks value = " + this.numClicksField);
+        controller.updateCatInfo(this.nameField, this.urlField, this.numClicksField);
+      }, false);
     }
   };
 
