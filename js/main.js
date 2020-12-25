@@ -19,8 +19,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
     updateCatCount: function(cat) {
       cat.count++;
+    },
+    updateCatData: function(name, url, count) {
+      this.activeCat = this.getActiveStatus();
+      console.log("catArray[0].name: " + catArray[0].name);
+      for (var i = 0; i < catArray.length-1; i++) {
+        var currentCat = catArray[i];
+        if (this.activeCat.name == currentCat.name) {
+          currentCat.name = name;
+          currentCat.img = url;
+          currentCat.count = count;
+        }
+      }
     }    
   };
+
+
+
+
+
 
 
   var controller = {
@@ -36,7 +53,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
     increaseCount: function(cat) {
       model.updateCatCount(cat);
+      view.render();      
+    },
+    updateCatInfo: function(name, url, count) {
+      model.updateCatData(name, url, count);
       view.render();
+      adminView.render();
     },
     init: function() {
       model.init();
@@ -44,6 +66,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
       adminView.init();
     }
   };
+
+
+
+
+
 
   var adminView = {
     init: function() {
@@ -63,6 +90,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
       document.getElementById("form-name-field").defaultValue = controller.getActiveCat().name;
       document.getElementById("form-url-field").defaultValue = controller.getActiveCat().img;
       document.getElementById("form-clicks-field").defaultValue = controller.getActiveCat().count;
+      // Save new input values   
+      document.getElementById("save-button").addEventListener('click', function(event){
+        event.preventDefault();
+        this.nameField = document.getElementById("form-name-field").value;        
+        this.urlField = document.getElementById("form-url-field").value;
+        this.numClicksField = document.getElementById("form-clicks-field").value;
+        console.log("new name value = " + this.nameField);
+        console.log("new url value = " + this.urlField);
+        console.log("new numclicks value = " + this.numClicksField);
+        controller.updateCatInfo(this.nameField, this.urlField, this.numClicksField);
+      }, false);
     }
   };
 
