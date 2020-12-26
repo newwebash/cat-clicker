@@ -21,9 +21,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
       cat.count++;
     },
     updateCatData: function(name, url, count) {
+      console.log("Hi from model updateCatData!");
       this.activeCat = this.getActiveStatus();
       console.log("catArray[0].name: " + catArray[0].name);
-      for (var i = 0; i < catArray.length-1; i++) {
+      for (var i = 0; i < catArray.length; i++) {
+        console.log("Loop - i = " + i);
         var currentCat = catArray[i];
         if (this.activeCat.name == currentCat.name) {
           currentCat.name = name;
