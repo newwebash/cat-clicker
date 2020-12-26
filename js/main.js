@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       view.render();
       adminView.render();
     },
+
     init: function() {
       model.init();
       view.init();      
@@ -102,37 +103,55 @@ document.addEventListener("DOMContentLoaded", function(event) {
         console.log("new url value = " + this.urlField);
         console.log("new numclicks value = " + this.numClicksField);
         controller.updateCatInfo(this.nameField, this.urlField, this.numClicksField);
+        //view.init();
       }, false);
     }
   };
 
-  var view = {
-    makeCatPicker: function(cat) {
-      var catThumbnail = document.createElement("LI");      
-      var catThumbnailText = document.createTextNode(cat.name);
-      catThumbnail.className = "clickable picker-item";
-      catThumbnail.appendChild(catThumbnailText);
+  var catPickerView = {   
+    render: function() {
+      // empty the picker
+      this.pickerContainer = document.getElementById("cat-picker-container");
+      this.pickerContainer.innerHTML = '';
 
-      // Insert in picker container div
-      this.pickerContainer.appendChild(catThumbnail);
+      
 
       // Set active cat on click
-      catThumbnail.addEventListener('click', function(){
-        controller.setActiveCat(cat);
-      }, false);
-    },
+      // catThumbnail.addEventListener('click', function(){
+      //   controller.setActiveCat(cat);
+      //   if (controller.isAdminViewActive() == true) {
+      //     adminView.render();
+      //   }        
+      // }, false);
 
-    init: function() {      
-      this.parent = document.getElementById("cat-container");  // Select section element      
-      this.pickerContainer = document.getElementById("cat-picker-container");    // Select aside element     
-      // Populate cat picker list
       var catList = controller.getCats();  // Get cats from controller   
          
       for (var i=0; i < catList.length; i++) {  
         var currentCat = catList[i];        
-        this.makeCatPicker(currentCat);  
-      }
+        // create the list
+        var catThumbnail = document.createElement("LI");      
+        var catThumbnailText = document.createTextNode(currentCat.name);
+        catThumbnail.className = "clickable picker-item";
+        catThumbnail.appendChild(catThumbnailText);
 
+         
+
+        catThumbnail.addEventListener('click', (function(catCopy) {
+          return function() {
+            controller.setActiveCat(catCopy);    
+            }; 
+          })(currentCat));
+          
+          // Insert in picker container div
+        this.pickerContainer.appendChild(catThumbnail);
+      }
+    }
+  };
+
+  var view = {
+    init: function() {      
+      this.parent = document.getElementById("cat-container");  // Select section element      
+      
       // Enable scrolling animation on site title
       window.addEventListener(
         "scroll",
@@ -144,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         },
         false
       );
-
+      catPickerView.render();
       view.render();  // Render or re-render view
     },
 
@@ -153,8 +172,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       // Get active cat
       var activeCat = controller.getActiveCat();
 
-      //check to see if there's already a cat displayed and if so, remove it
-      // REFACTOR LATER --- check to see if existing cat container matches new active cat
+      //check to see if there's already a cat displayed and if so, remove it      
       if (this.parent.hasChildNodes()) {
         this.parent.removeChild(this.parent.firstChild);
       }
@@ -197,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       // to increaseCount
       image.addEventListener('click', function(){
       controller.increaseCount(activeCat);
-      }, false);
+      }, false);      
     }   
 
   };
