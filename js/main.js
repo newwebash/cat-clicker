@@ -21,9 +21,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
       cat.count++;
     },
     updateCatData: function(name, url, count) {
+      console.log("Hi from model updateCatData!");
       this.activeCat = this.getActiveStatus();
       console.log("catArray[0].name: " + catArray[0].name);
-      for (var i = 0; i < catArray.length-1; i++) {
+      for (var i = 0; i < catArray.length; i++) {
+        console.log("Loop - i = " + i);
         var currentCat = catArray[i];
         if (this.activeCat.name == currentCat.name) {
           currentCat.name = name;
@@ -49,6 +51,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       view.render();
     },
     getActiveCat: function() {
+      console.log("Hi from controller getActiveCat!");
+      console.log("model.getActiveStatus().name = " + model.getActiveStatus().name);
       return model.getActiveStatus();
     },
     increaseCount: function(cat) {
@@ -59,6 +63,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       model.updateCatData(name, url, count);
       view.render();
       adminView.render();
+    },
+    isAdminViewActive: function() {
+      this.adminArea = document.getElementById('admin-form');
+      if (this.adminArea.classList.contains("hidden")) {
+        return false;
+      } else {
+        return true;
+      }
     },
     init: function() {
       model.init();
@@ -74,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var adminView = {
     init: function() {
-      console.log("hi from AdminView init!");
       this.adminButton = document.getElementById("admin-button");
       this.adminButton.addEventListener('click', function(){
         adminView.render();
@@ -86,6 +97,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
       console.log("hi from AdminView render!");
       this.adminArea = document.getElementById('admin-form');
       this.adminArea.classList.toggle("hidden");
+
+      // Clear the form
+      this.adminArea.reset();
+      
       // Set default input values
       document.getElementById("form-name-field").defaultValue = controller.getActiveCat().name;
       document.getElementById("form-url-field").defaultValue = controller.getActiveCat().img;
@@ -99,38 +114,47 @@ document.addEventListener("DOMContentLoaded", function(event) {
         console.log("new name value = " + this.nameField);
         console.log("new url value = " + this.urlField);
         console.log("new numclicks value = " + this.numClicksField);
-        controller.updateCatInfo(this.nameField, this.urlField, this.numClicksField);
+        controller.updateCatInfo(this.nameField, this.urlField, this.numClicksField);        
+        catPickerView.render();
       }, false);
     }
   };
 
-  var view = {
-    makeCatPicker: function(cat) {
-      var catThumbnail = document.createElement("LI");      
-      var catThumbnailText = document.createTextNode(cat.name);
-      catThumbnail.className = "clickable picker-item";
-      catThumbnail.appendChild(catThumbnailText);
+  var catPickerView = {   
+    render: function() {
+      // empty the picker
+      this.pickerContainer = document.getElementById("cat-picker-container");
+      this.pickerContainer.innerHTML = '';
 
-      // Insert in picker container div
-      this.pickerContainer.appendChild(catThumbnail);
-
-      // Set active cat on click
-      catThumbnail.addEventListener('click', function(){
-        controller.setActiveCat(cat);
-      }, false);
-    },
-
-    init: function() {      
-      this.parent = document.getElementById("cat-container");  // Select section element      
-      this.pickerContainer = document.getElementById("cat-picker-container");    // Select aside element     
-      // Populate cat picker list
       var catList = controller.getCats();  // Get cats from controller   
          
       for (var i=0; i < catList.length; i++) {  
         var currentCat = catList[i];        
-        this.makeCatPicker(currentCat);  
-      }
+        // create the list
+        var catThumbnail = document.createElement("LI");      
+        var catThumbnailText = document.createTextNode(currentCat.name);
+        catThumbnail.className = "clickable picker-item";
+        catThumbnail.appendChild(catThumbnailText);        
 
+        catThumbnail.addEventListener('click', (function(catCopy) {
+          return function() {
+            controller.setActiveCat(catCopy);    
+            if (controller.isAdminViewActive() == true) {
+                adminView.render();
+              }
+            }; 
+          })(currentCat));
+          
+          // Insert in picker container div
+        this.pickerContainer.appendChild(catThumbnail);
+      }
+    }
+  };
+
+  var view = {
+    init: function() {      
+      this.parent = document.getElementById("cat-container");  // Select section element      
+      
       // Enable scrolling animation on site title
       window.addEventListener(
         "scroll",
@@ -142,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         },
         false
       );
-
+      catPickerView.render();
       view.render();  // Render or re-render view
     },
 
@@ -151,8 +175,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       // Get active cat
       var activeCat = controller.getActiveCat();
 
-      //check to see if there's already a cat displayed and if so, remove it
-      // REFACTOR LATER --- check to see if existing cat container matches new active cat
+      //check to see if there's already a cat displayed and if so, remove it      
       if (this.parent.hasChildNodes()) {
         this.parent.removeChild(this.parent.firstChild);
       }
@@ -195,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       // to increaseCount
       image.addEventListener('click', function(){
       controller.increaseCount(activeCat);
-      }, false);
+      }, false);      
     }   
 
   };
